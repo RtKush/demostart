@@ -1,148 +1,45 @@
 import { useEffect, useState } from 'react'
-import {
-  ArrowRight, Briefcase, CheckCircle, ChevronDown, Edit3,
-  Layout, Mail, MapPin, Menu, MessageCircle, Monitor, Moon, Phone, RefreshCw,
-  Search, Send, Settings, ShoppingCart, Smartphone, Sun, Target, Wrench,
-  Zap,
-} from 'lucide-react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { ArrowRight, Briefcase, CheckCircle, ChevronDown, Edit3, Layout, Mail, MapPin, Menu, MessageCircle, Monitor, Moon, Phone, RefreshCw, Search, Send, Settings, ShoppingCart, Smartphone, Sun, Target, Wrench, Zap } from 'lucide-react'
 import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
 
-const services = [
-  ['Business Websites', 'Professional websites designed to establish credibility and generate leads.', Monitor],
-  ['Landing Pages', 'High-converting landing pages for campaigns, products and services.', Layout],
-  ['Portfolio Websites', 'Personal and professional websites that showcase your work and expertise.', Briefcase],
-  ['E-commerce Websites', 'Online stores with product catalogs, payments and essential commerce features.', ShoppingCart],
-  ['Website Redesign', 'Transform outdated websites into modern, responsive experiences.', RefreshCw],
-  ['Blogging Websites', 'Fully ready-to-monetize blogging websites built for SEO growth, AdSense approval support, and long-term content success with WordPress and Shopify CMS.', Edit3],
-  ['Website Maintenance', 'Updates, improvements, security and ongoing technical support.', Wrench],
-]
-
-const projects = [
-  ['01 — RESTAURANT', 'Spice Garden', 'Modern restaurant website.'],
-  ['02 — COACHING', 'Elevate Academy', 'Professional coaching institute website.'],
-  ['03 — FITNESS', 'FitZone', 'Modern gym and fitness studio website.'],
-  ['04 — REAL ESTATE', 'PrimeHomes', 'Luxury real estate landing website.'],
-  ['05 — HEALTHCARE', 'CarePlus Clinic', 'Professional clinic website.'],
-  ['06 — LOCAL BUSINESS', 'Sharma Electronics', 'Modern local business website.'],
-]
-
-const team = [
-  ['Alex Johnson', 'Founder & Creative Director', 'Leading strategy, creative direction, and helping businesses build powerful digital experiences.', 'men/32', '9876543210'],
-  ['Sarah Williams', 'Lead Web Developer', 'Building fast, responsive, and scalable websites with modern development solutions.', 'women/44', '9876543211'],
-  ['David Smith', 'SEO Specialist', 'Creating SEO strategies that improve rankings, visibility, and organic growth.', 'men/46', '9876543212'],
-  ['Emily Brown', 'UI/UX Designer', 'Designing modern interfaces focused on user experience and conversions.', 'women/65', '9876543213'],
-  ['Michael Lee', 'Content Strategist', 'Creating valuable SEO content that helps brands connect with customers.', 'men/75', '9876543214'],
-  ['Jessica Taylor', 'Client Success Manager', 'Managing communication and ensuring smooth project delivery.', 'women/68', '9876543215'],
-]
-
-const faqs = [
-  ['How long does a website take?', 'Most standard websites can be completed within 5–14 days depending on requirements.'],
-  ['Do you provide domain and hosting?', 'Yes, we can help with domain, hosting and deployment.'],
-  ['Can you redesign my existing website?', 'Yes. We can modernize existing websites and improve their mobile experience and performance.'],
-  ['Will my website work on mobile?', 'Yes. All websites are designed to be fully responsive.'],
-  ['Can I request custom features?', 'Yes. Custom functionality can be added based on project requirements.'],
-  ['Do you provide maintenance?', 'Yes. Ongoing maintenance and support packages are available.'],
-]
-
-const benefits = [
-  ['Modern Design', 'Beautiful interfaces designed around your brand.', Layout],
-  ['Mobile First', 'Your website looks great on phones, tablets and desktops.', Smartphone],
-  ['Fast Performance', 'Optimized websites with fast loading times.', Zap],
-  ['SEO Ready', 'Built with search-engine-friendly structure and best practices.', Search],
-  ['Easy to Maintain', 'Simple and scalable architecture.', Settings],
-  ['Business Focused', "We don't just build websites — we build websites designed around your goals.", Target],
-]
-
-const packages = [
-  ['STARTER', '₹5,000', 'For individuals and small businesses.', ['3–5 pages', 'Responsive design', 'Contact form', 'WhatsApp integration', 'Basic SEO', 'Deployment']],
-  ['BUSINESS', '₹10,000', 'For complete online presence.', ['5–8 pages', 'Custom UI design', 'Responsive development', 'Contact form', 'WhatsApp integration', 'Google Maps', 'Basic SEO', 'Deployment'], true],
-  ['PREMIUM', '₹20,000+', 'For advanced functionality.', ['Custom design', 'Advanced functionality', 'CMS/Admin panel', 'Database integration', 'Booking/payment features', 'Advanced SEO', 'Deployment', 'Post-launch support']],
-]
+const services = [['Business Websites', 'Professional websites designed to establish credibility and generate leads.', Monitor], ['Landing Pages', 'High-converting landing pages for campaigns, products and services.', Layout], ['Portfolio Websites', 'Personal and professional websites that showcase your work and expertise.', Briefcase], ['E-commerce Websites', 'Online stores with product catalogs, payments and essential commerce features.', ShoppingCart], ['Website Redesign', 'Transform outdated websites into modern, responsive experiences.', RefreshCw], ['Blogging Websites', 'Fully ready-to-monetize blogging websites built for SEO growth, AdSense approval support, and long-term content success with WordPress and Shopify CMS.', Edit3], ['Website Maintenance', 'Updates, improvements, security and ongoing technical support.', Wrench]]
+const projects = [['01 — RESTAURANT', 'Spice Garden', 'Modern restaurant website.'], ['02 — COACHING', 'Elevate Academy', 'Professional coaching institute website.'], ['03 — FITNESS', 'FitZone', 'Modern gym and fitness studio website.'], ['04 — REAL ESTATE', 'PrimeHomes', 'Luxury real estate landing website.'], ['05 — HEALTHCARE', 'CarePlus Clinic', 'Professional clinic website.'], ['06 — LOCAL BUSINESS', 'Sharma Electronics', 'Modern local business website.']]
+const team = [['Alex Johnson', 'Founder & Creative Director', 'Leading strategy, creative direction, and helping businesses build powerful digital experiences.', 'men/32', '9876543210'], ['Sarah Williams', 'Lead Web Developer', 'Building fast, responsive, and scalable websites with modern development solutions.', 'women/44', '9876543211'], ['David Smith', 'SEO Specialist', 'Creating SEO strategies that improve rankings, visibility, and organic growth.', 'men/46', '9876543212'], ['Emily Brown', 'UI/UX Designer', 'Designing modern interfaces focused on user experience and conversions.', 'women/65', '9876543213'], ['Michael Lee', 'Content Strategist', 'Creating valuable SEO content that helps brands connect with customers.', 'men/75', '9876543214'], ['Jessica Taylor', 'Client Success Manager', 'Managing communication and ensuring smooth project delivery.', 'women/68', '9876543215']]
+const faqs = [['How long does a website take?', 'Most standard websites can be completed within 5–14 days depending on requirements.'], ['Do you provide domain and hosting?', 'Yes, we can help with domain, hosting and deployment.'], ['Can you redesign my existing website?', 'Yes. We can modernize existing websites and improve their mobile experience and performance.'], ['Will my website work on mobile?', 'Yes. All websites are designed to be fully responsive.'], ['Can I request custom features?', 'Yes. Custom functionality can be added based on project requirements.'], ['Do you provide maintenance?', 'Yes. Ongoing maintenance and support packages are available.']]
+const benefits = [['Modern Design', 'Beautiful interfaces designed around your brand.', Layout], ['Mobile First', 'Your website looks great on phones, tablets and desktops.', Smartphone], ['Fast Performance', 'Optimized websites with fast loading times.', Zap], ['SEO Ready', 'Built with search-engine-friendly structure and best practices.', Search], ['Easy to Maintain', 'Simple and scalable architecture.', Settings], ['Business Focused', "We don't just build websites — we build websites designed around your goals.", Target]]
+const packages = [['STARTER', '₹5,000', 'For individuals and small businesses.', ['3–5 pages', 'Responsive design', 'Contact form', 'WhatsApp integration', 'Basic SEO', 'Deployment']], ['BUSINESS', '₹10,000', 'For complete online presence.', ['5–8 pages', 'Custom UI design', 'Responsive development', 'Contact form', 'WhatsApp integration', 'Google Maps', 'Basic SEO', 'Deployment'], true], ['PREMIUM', '₹20,000+', 'For advanced functionality.', ['Custom design', 'Advanced functionality', 'CMS/Admin panel', 'Database integration', 'Booking/payment features', 'Advanced SEO', 'Deployment', 'Post-launch support']]]
+const navItems = [['Home', '/'], ['Services', '/services'], ['Work', '/work'], ['Process', '/process'], ['Pricing', '/pricing'], ['About', '/about'], ['Contact', '/contact']]
 
 function App() {
+  const location = useLocation()
   const [theme, setTheme] = useState(() => localStorage.getItem('agencyTheme') || 'dark')
   const [menuOpen, setMenuOpen] = useState(false)
-  const [activeFaq, setActiveFaq] = useState(null)
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('agencyTheme', theme)
-  }, [theme])
-
-  useEffect(() => {
-    const reveals = document.querySelectorAll('.reveal')
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active')
-          observer.unobserve(entry.target)
-        }
-      })
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' })
-    reveals.forEach((reveal) => observer.observe(reveal))
-    return () => observer.disconnect()
-  }, [])
-
-  const closeMenu = () => setMenuOpen(false)
-
-  return <>
-    <nav id="navbar">
-      <div className="container nav-container">
-        <a href="#home" className="logo" onClick={closeMenu}>AgencyName</a>
-        <div className={`nav-links ${menuOpen ? 'mobile-active' : ''}`}>
-          {['Home', 'Services', 'Work', 'Process', 'Pricing', 'About', 'Contact'].map((item) => <a key={item} href={`#${item.toLowerCase()}`} onClick={closeMenu}>{item}</a>)}
-          <a href="#contact" className="btn btn-primary mobile-cta" onClick={closeMenu}>Get Your Website</a>
-        </div>
-        <div className="nav-actions">
-          <button className="theme-toggle" aria-label="Toggle theme" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? <Sun /> : <Moon />}</button>
-          <a href="#contact" className="btn btn-primary nav-cta">Get Your Website <ArrowRight size={16} /></a>
-          <button className="mobile-menu-btn" aria-label="Toggle menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <ChevronDown /> : <Menu />}</button>
-        </div>
-      </div>
-    </nav>
-
-    <main>
-      <section id="home" className="hero container reveal">
-        <div className="hero-content"><h1>Your Business <span className="text-highlight">Deserves</span> a Better Website.</h1><p>We design and build modern, fast, mobile-friendly websites that help businesses build trust and grow online.</p><div className="hero-buttons"><a href="#contact" className="btn btn-primary">Get Your Website <ArrowRight /></a><a href="#work" className="btn btn-outline">View Our Work</a></div></div>
-        <div className="hero-visual"><Layout size={80} /></div>
-      </section>
-
-      <section className="trust-section reveal"><div className="container"><p>Built for businesses that want to grow online.</p><div className="trust-categories"><span>Restaurants</span> • <span>Startups</span> • <span>Coaches</span> • <span>Professionals</span> • <span>Local Businesses</span> • <span>Service Businesses</span></div><div className="badge">Demo Projects Below</div></div></section>
-
-      <section id="services" className="section-padding container reveal"><SectionIntro title="Everything You Need to Build Your Online Presence" subtitle="From a simple landing page to a complete business website, we build solutions tailored to your needs." /><div className="grid-3">{services.map(([title, description, Icon]) => <div className="card" key={title}><Icon className="service-icon" size={32} /><h3>{title}</h3><p>{description}</p><a href="#contact" className="learn-more">Learn More <ArrowRight size={14} /></a></div>)}</div></section>
-
-      <section id="work" className="section-padding container reveal"><div className="portfolio-header"><div><h2>Work We're Proud Of</h2><p className="subtitle">A selection of concepts and websites designed for different types of businesses.</p></div><div className="badge">Concept Projects / Demo</div></div><div className="grid-3">{projects.map(([meta, title, description]) => <div className="project-card" key={title}><div className="project-img"><span>View Project <ArrowRight size={16} /></span></div><div className="project-meta">{meta}</div><h3 className="project-title">{title}</h3><p className="project-desc">{description}</p></div>)}</div></section>
-
-      <section className="section-padding container reveal why-section"><h2 className="text-center">Why Businesses Choose Us</h2><div className="grid-3">{benefits.map(([title, description, Icon]) => <div className="benefit" key={title}><Icon /><div><h3>{title}</h3><p>{description}</p></div></div>)}</div></section>
-
-      <section id="process" className="section-padding container reveal"><h2 className="text-center section-title">From Idea to Live Website</h2><div className="process-grid">{[['01', 'Discover', 'We understand your business, audience and requirements.'], ['02', 'Design', 'We create a modern design aligned with your brand.'], ['03', 'Develop', 'We turn the design into a fast, responsive website.'], ['04', 'Launch', 'We deploy your website and make it ready for your customers.']].map(([number, title, description]) => <div className="process-step" key={number}><div className="step-num">{number}</div><h3>{title}</h3><p>{description}</p></div>)}</div></section>
-
-      <section id="pricing" className="section-padding container reveal"><SectionIntro title="Simple, Transparent Pricing" subtitle="Choose a starting package or talk to us about a custom solution." /><div className="pricing-grid">{packages.map(([title, price, description, features, popular]) => <div className={`card pricing-card ${popular ? 'popular' : ''}`} key={title}>{popular && <div className="popular-badge">Most Popular</div>}<h3>{title}</h3><div className="price">{price}<span>/start</span></div><p>{description}</p><ul>{features.map((feature) => <li key={feature}><CheckCircle size={16} />{feature}</li>)}</ul><a href="#contact" className={`btn ${popular ? 'btn-primary' : 'btn-outline'}`}>{title === 'PREMIUM' ? 'Discuss Project' : 'Get Started'} <ArrowRight size={16} /></a></div>)}</div><p className="pricing-note">Final pricing depends on project requirements and complexity.</p></section>
-
-      <section id="about" className="about-section reveal"><div className="container text-center about-inner"><h2>We're Here to Make Your Business Look Great Online.</h2><p>We are a small web development studio focused on helping businesses create a professional and effective online presence.</p><div className="about-pill"><b>Design <span>+</span> Technology <span>+</span> Business Thinking</b></div></div></section>
-
-      <section id="team" className="section-padding container reveal"><SectionIntro title="Meet Our Team" subtitle="Our dedicated team of designers, developers, SEO specialists, and creative professionals helping businesses grow online." /><div className="grid-3">{team.map(([name, role, description, image, phone]) => <div className="card team-card" key={name}><img src={`https://randomuser.me/api/portraits/${image}.jpg`} alt={name} /><h3>{name}</h3><p className="role">{role}</p><p>{description}</p><div className="team-actions"><a href={`tel:+91${phone}`} className="btn btn-outline"><Phone size={15} />Call</a><a href={`https://wa.me/91${phone}`} target="_blank" rel="noreferrer" className="btn whatsapp"><MessageCircle size={15} />WhatsApp</a></div></div>)}</div></section>
-
-      <section className="section-padding container reveal"><h2 className="text-center section-title">Frequently Asked Questions</h2><div className="faq-container">{faqs.map(([question, answer], index) => <div className={`faq-item ${activeFaq === index ? 'active' : ''}`} key={question}><button className="faq-question" onClick={() => setActiveFaq(activeFaq === index ? null : index)}>{question}<ChevronDown className="faq-icon" /></button><div className="faq-answer">{answer}</div></div>)}</div></section>
-
-      <section className="section-padding final-cta reveal"><div className="container text-center"><h2>Ready to Build Your Website?</h2><p className="subtitle">Tell us about your business and let's create something your customers will love.</p><div className="cta-buttons"><a href="#contact" className="btn btn-primary">Start Your Project <ArrowRight /></a><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="btn btn-outline whatsapp-outline"><MessageCircle />Chat on WhatsApp</a></div><p className="fine-print">Free initial consultation • No obligation</p></div></section>
-
-      <Contact />
-    </main>
-    <footer><div className="container"><div className="footer-grid"><div><div className="logo">AgencyName</div><p className="footer-desc">Building better websites for better businesses.</p></div><div className="footer-links"><h4>Quick Links</h4><a href="#home">Home</a><a href="#services">Services</a><a href="#work">Work</a><a href="#process">Process</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></div><div><h4>Connect</h4><div className="social-icons"><a href="#" aria-label="Instagram"><FaInstagram /></a><a href="#" aria-label="LinkedIn"><FaLinkedin /></a><a href="#" aria-label="GitHub"><FaGithub /></a></div></div></div><div className="footer-bottom">© 2026 AgencyName. All rights reserved.</div></div></footer>
-  </>
+  useEffect(() => { document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('agencyTheme', theme) }, [theme])
+  useEffect(() => { setMenuOpen(false); window.scrollTo(0, 0); const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target) } }), { threshold: .1, rootMargin: '0px 0px -50px 0px' }); document.querySelectorAll('.reveal').forEach((item) => observer.observe(item)); return () => observer.disconnect() }, [location.pathname])
+  return <><Header theme={theme} setTheme={setTheme} menuOpen={menuOpen} setMenuOpen={setMenuOpen} /><main>{location.pathname === '/' ? <Home /> : <Page path={location.pathname} />}</main><Footer /></>
 }
 
-function SectionIntro({ title, subtitle }) {
-  return <div className="text-center section-intro"><h2>{title}</h2><p className="subtitle">{subtitle}</p></div>
+function Header({ theme, setTheme, menuOpen, setMenuOpen }) {
+  return <nav id="navbar"><div className="container nav-container"><Link to="/" className="logo">AgencyName</Link><div className={`nav-links ${menuOpen ? 'mobile-active' : ''}`}>{navItems.map(([label, path]) => <NavLink key={path} to={path} className={({ isActive }) => isActive ? 'active' : ''}>{label}</NavLink>)}<Link to="/contact" className="btn btn-primary mobile-cta">Get Your Website</Link></div><div className="nav-actions"><button className="theme-toggle" aria-label="Toggle theme" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? <Sun /> : <Moon />}</button><Link to="/contact" className="btn btn-primary nav-cta">Get Your Website <ArrowRight size={16} /></Link><button className="mobile-menu-btn" aria-label="Toggle menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <ChevronDown /> : <Menu />}</button></div></div></nav>
 }
 
-function Contact() {
-  return <section id="contact" className="section-padding container reveal contact-section"><div className="contact-grid"><div><h2>Let's Talk About Your Project</h2><p className="contact-lead">Fill out the form and we'll get back to you to discuss your requirements.</p><div className="contact-info"><div><Phone />+91 98765 43210 (WhatsApp Available)</div><div><Mail />hello@agencyname.com</div><div><MapPin />Available for remote work globally</div></div></div><div className="contact-form"><form onSubmit={(event) => event.preventDefault()}><div className="form-grid"><Field label="Name" placeholder="John Doe" required /><Field label="Business Name" placeholder="Your Company" /><Field label="Email" placeholder="john@example.com" type="email" required /><Field label="Phone / WhatsApp" placeholder="+91 98765 43210" type="tel" /></div><div className="form-group"><label>What do you need?</label><select defaultValue=""><option value="">Select an option</option><option value="new">New Website</option><option value="redesign">Website Redesign</option><option value="ecommerce">E-commerce Store</option><option value="landing">Landing Page</option></select></div><div className="form-group"><label>Message</label><textarea rows="4" placeholder="Tell us about your project..." /></div><button type="submit" className="btn btn-primary">Send Inquiry <Send size={16} /></button></form></div></div></section>
-}
-
-function Field({ label, placeholder, type = 'text', required = false }) {
-  return <div className="form-group"><label>{label}</label><input type={type} placeholder={placeholder} required={required} /></div>
-}
+function Home() { return <><section id="home" className="hero container reveal"><div className="hero-content"><h1>Your Business <span className="text-highlight">Deserves</span> a Better Website.</h1><p>We design and build modern, fast, mobile-friendly websites that help businesses build trust and grow online.</p><div className="hero-buttons"><Link to="/contact" className="btn btn-primary">Get Your Website <ArrowRight /></Link><Link to="/work" className="btn btn-outline">View Our Work</Link></div></div><div className="hero-visual"><Layout size={80} /></div></section><Trust /><Services /><Work /><Benefits /><Process /><Pricing /><About /><Team /><Faq /><Cta /><Contact /></> }
+function Page({ path }) { const content = { '/services': <Services />, '/work': <Work />, '/process': <Process />, '/pricing': <Pricing />, '/about': <About />, '/contact': <Contact />, '/team': <Team /> }[path] || <NotFound />; return <div className="route-page">{content}</div> }
+function Trust() { return <section className="trust-section reveal"><div className="container"><p>Built for businesses that want to grow online.</p><div className="trust-categories"><span>Restaurants</span> • <span>Startups</span> • <span>Coaches</span> • <span>Professionals</span> • <span>Local Businesses</span> • <span>Service Businesses</span></div><div className="badge">Demo Projects Below</div></div></section> }
+function Intro({ title, subtitle }) { return <div className="text-center section-intro"><h2>{title}</h2><p className="subtitle">{subtitle}</p></div> }
+function Services() { return <section id="services" className="section-padding container reveal"><Intro title="Everything You Need to Build Your Online Presence" subtitle="From a simple landing page to a complete business website, we build solutions tailored to your needs." /><div className="grid-3">{services.map(([title, description, Icon]) => <div className="card" key={title}><Icon className="service-icon" size={32} /><h3>{title}</h3><p>{description}</p><Link to="/contact" className="learn-more">Learn More <ArrowRight size={14} /></Link></div>)}</div></section> }
+function Work() { return <section id="work" className="section-padding container reveal"><div className="portfolio-header"><div><h2>Work We're Proud Of</h2><p className="subtitle">A selection of concepts and websites designed for different types of businesses.</p></div><div className="badge">Concept Projects / Demo</div></div><div className="grid-3">{projects.map(([meta, title, description]) => <div className="project-card" key={title}><div className="project-img"><span>View Project <ArrowRight size={16} /></span></div><div className="project-meta">{meta}</div><h3 className="project-title">{title}</h3><p className="project-desc">{description}</p></div>)}</div></section> }
+function Benefits() { return <section className="section-padding container reveal why-section"><h2 className="text-center">Why Businesses Choose Us</h2><div className="grid-3">{benefits.map(([title, description, Icon]) => <div className="benefit" key={title}><Icon /><div><h3>{title}</h3><p>{description}</p></div></div>)}</div></section> }
+function Process() { return <section id="process" className="section-padding container reveal"><h2 className="text-center section-title">From Idea to Live Website</h2><div className="process-grid">{[['01', 'Discover', 'We understand your business, audience and requirements.'], ['02', 'Design', 'We create a modern design aligned with your brand.'], ['03', 'Develop', 'We turn the design into a fast, responsive website.'], ['04', 'Launch', 'We deploy your website and make it ready for your customers.']].map(([number, title, description]) => <div className="process-step" key={number}><div className="step-num">{number}</div><h3>{title}</h3><p>{description}</p></div>)}</div></section> }
+function Pricing() { return <section id="pricing" className="section-padding container reveal"><Intro title="Simple, Transparent Pricing" subtitle="Choose a starting package or talk to us about a custom solution." /><div className="pricing-grid">{packages.map(([title, price, description, features, popular]) => <div className={`card pricing-card ${popular ? 'popular' : ''}`} key={title}>{popular && <div className="popular-badge">Most Popular</div>}<h3>{title}</h3><div className="price">{price}<span>/start</span></div><p>{description}</p><ul>{features.map((feature) => <li key={feature}><CheckCircle size={16} />{feature}</li>)}</ul><Link to="/contact" className={`btn ${popular ? 'btn-primary' : 'btn-outline'}`}>{title === 'PREMIUM' ? 'Discuss Project' : 'Get Started'} <ArrowRight size={16} /></Link></div>)}</div><p className="pricing-note">Final pricing depends on project requirements and complexity.</p></section> }
+function About() { return <section id="about" className="about-section reveal"><div className="container text-center about-inner"><h2>We're Here to Make Your Business Look Great Online.</h2><p>We are a small web development studio focused on helping businesses create a professional and effective online presence.</p><div className="about-pill"><b>Design <span>+</span> Technology <span>+</span> Business Thinking</b></div></div></section> }
+function Team() { return <section id="team" className="section-padding container reveal"><Intro title="Meet Our Team" subtitle="Our dedicated team of designers, developers, SEO specialists, and creative professionals helping businesses grow online." /><div className="grid-3">{team.map(([name, role, description, image, phone]) => <div className="card team-card" key={name}><img src={`https://randomuser.me/api/portraits/${image}.jpg`} alt={name} /><h3>{name}</h3><p className="role">{role}</p><p>{description}</p><div className="team-actions"><a href={`tel:+91${phone}`} className="btn btn-outline"><Phone size={15} />Call</a><a href={`https://wa.me/91${phone}`} target="_blank" rel="noreferrer" className="btn whatsapp"><MessageCircle size={15} />WhatsApp</a></div></div>)}</div></section> }
+function Faq() { const [active, setActive] = useState(null); return <section className="section-padding container reveal"><h2 className="text-center section-title">Frequently Asked Questions</h2><div className="faq-container">{faqs.map(([question, answer], index) => <div className={`faq-item ${active === index ? 'active' : ''}`} key={question}><button className="faq-question" onClick={() => setActive(active === index ? null : index)}>{question}<ChevronDown className="faq-icon" /></button><div className="faq-answer">{answer}</div></div>)}</div></section> }
+function Cta() { return <section className="section-padding final-cta reveal"><div className="container text-center"><h2>Ready to Build Your Website?</h2><p className="subtitle">Tell us about your business and let's create something your customers will love.</p><div className="cta-buttons"><Link to="/contact" className="btn btn-primary">Start Your Project <ArrowRight /></Link><a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="btn btn-outline whatsapp-outline"><MessageCircle />Chat on WhatsApp</a></div><p className="fine-print">Free initial consultation • No obligation</p></div></section> }
+function Contact() { return <section id="contact" className="section-padding container reveal contact-section"><div className="contact-grid"><div><h2>Let's Talk About Your Project</h2><p className="contact-lead">Fill out the form and we'll get back to you to discuss your requirements.</p><div className="contact-info"><div><Phone />+91 98765 43210 (WhatsApp Available)</div><div><Mail />hello@agencyname.com</div><div><MapPin />Available for remote work globally</div></div></div><div className="contact-form"><form onSubmit={(event) => event.preventDefault()}><div className="form-grid"><Field label="Name" placeholder="John Doe" required /><Field label="Business Name" placeholder="Your Company" /><Field label="Email" placeholder="john@example.com" type="email" required /><Field label="Phone / WhatsApp" placeholder="+91 98765 43210" type="tel" /></div><div className="form-group"><label>What do you need?</label><select defaultValue=""><option value="">Select an option</option><option value="new">New Website</option><option value="redesign">Website Redesign</option><option value="ecommerce">E-commerce Store</option><option value="landing">Landing Page</option></select></div><div className="form-group"><label>Message</label><textarea rows="4" placeholder="Tell us about your project..." /></div><button type="submit" className="btn btn-primary">Send Inquiry <Send size={16} /></button></form></div></div></section> }
+function Field({ label, placeholder, type = 'text', required = false }) { return <div className="form-group"><label>{label}</label><input type={type} placeholder={placeholder} required={required} /></div> }
+function NotFound() { return <section className="section-padding container text-center"><h2>Page Not Found</h2><Link to="/" className="btn btn-primary">Return Home <ArrowRight size={16} /></Link></section> }
+function Footer() { return <footer><div className="container"><div className="footer-grid"><div><div className="logo">AgencyName</div><p className="footer-desc">Building better websites for better businesses.</p></div><div className="footer-links"><h4>Quick Links</h4>{navItems.map(([label, path]) => <Link key={path} to={path}>{label}</Link>)}</div><div><h4>Connect</h4><div className="social-icons"><a href="#" aria-label="Instagram"><FaInstagram /></a><a href="#" aria-label="LinkedIn"><FaLinkedin /></a><a href="#" aria-label="GitHub"><FaGithub /></a></div></div></div><div className="footer-bottom">© 2026 AgencyName. All rights reserved.</div></div></footer> }
 
 export default App
